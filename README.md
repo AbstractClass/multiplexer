@@ -1,5 +1,5 @@
 # Multiplexer
-An automation tool developed with secuirty scans in mind.  Take a template of commands with wildcards (ex. nmap, nikto, dirb), a list of payloads for those wildcards (ex. IPs, websites, etc.), and watch as all possibilites of the commands and payloads are generated and run in parallel.
+An automation tool developed with secuirty scans in mind.  Take a template of commands with wildcards (ex. nmap, nikto, dirb), a list of (tab separated) payloads for those wildcards (ex. IPs, websites, etc.), and watch as all possibilites of the commands and payloads are generated and run in parallel.
 
 ## Templates
 The template works off of pythons str.format() which uses `{X}` as a wildcard where `X` indicates the position (starting at 0 of course).
@@ -19,7 +19,7 @@ nmap -A -vv www.google.com -oA www.google.com-default.nmap
 nmap -A -vv www.github.com -oA www.google.com-default.nmap
 ```
 
-You can also use multiple parameters:
+You can also use multiple parameters (as long as the payload values are tab separated):
 ```
 Template:
 nmap -A -vv {0} -oA {1}
