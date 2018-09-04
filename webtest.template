@@ -1,0 +1,3 @@
+echo nikto -h {0} -o {1}-nikto.html
+echo dirb {0} -o {0}-dirb.txt
+echo sslscan {0} > {0}-sslscan.txt
