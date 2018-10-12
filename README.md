@@ -16,7 +16,7 @@ www.github.com
 The result in this case would be the following commands be run in parallel:
 ```
 nmap -A -vv www.google.com -oA www.google.com-default.nmap
-nmap -A -vv www.github.com -oA www.google.com-default.nmap
+nmap -A -vv www.github.com -oA www.github.com-default.nmap
 ```
 
 You can also use multiple parameters (as long as the payload values are tab separated):
