@@ -107,7 +107,7 @@ class Multiplexer:
 
     def spawn_process(self, command):
         """
-        Barely even needs to be a function honestly, just did it for logging and aesthetic.
+        Barely even needs to be a function honestly, just did it for logging and A e s t h e t i c.
         Run a command string as a seperate process and return the retcode on completion.
 
         :param command: string that represents a bash command (ie. "ls /home")
@@ -131,7 +131,7 @@ class Multiplexer:
 
 
 if __name__ == '__main__':
-    # PEP8 be damned, lambdas exist and I will use them
+    # PEP8 be damned, lambdas exist and I will use them!
     read_into_list = lambda x: open(x, 'r').read().splitlines()
 
     commands = read_into_list(args.template)
