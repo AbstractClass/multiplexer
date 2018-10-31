@@ -1,4 +1,5 @@
 #!/usr/env/python3
+from tqdm import tqdm
 import argparse
 import logging
 import multiprocessing
@@ -79,9 +80,14 @@ class Multiplexer:
         :return: tasks not completed
         """
         pool = multiprocessing.Pool(processes=self.cpu_count)
+
+        print("Starting the Multiplexer! "
+              "Running {} tasks over {} cores. "
+              "Savefile location is: {}".format(len(self.tasks), self.cpu_count, self.savefile))
+
         try:
             # log.info("Attempting to run {} tasks over {} cores".format(self.tasks.count, self.cpu_count))
-            pool.map(self.spawn_process, self.tasks)
+            tqdm(pool.map(self.spawn_process, self.tasks))
             # log.info("Completed multiprocessing operation.  Any failed tasks will be written to the save file.")
 
         # Please tell me there is a better way to do this.
@@ -119,7 +125,9 @@ class Multiplexer:
         if retcode == 0:
             # log.info("Success: {}".format(command))
             self.completed_tasks.append(command)
+            tqdm.write("Completed:", command)
         else:
+            tqdm.write("Failed:", command)
             pass
             # log.error("Failed: {}".format(command))
         return retcode
@@ -140,13 +148,9 @@ if __name__ == '__main__':
     payloads = [payload.strip().split('\t') for payload in raw_payloads]
 
     if not args.cpus:
-        if multiprocessing.cpu_count() <= 2:
-            args.cpus = 2
+        cpu_count = multiprocessing.cpu_count()
+        args.cpus = 2 if cpu_count <= 2 else cpu_count - 2
 
-        else:
-            args.cpus = multiprocessing.cpu_count() - 2
-
-    print(args.cpus)
     mp = Multiplexer(commands, payloads, args.cpus, savefile=args.savefile)
 
     if os.path.exists(os.path.expanduser(args.savefile)):
